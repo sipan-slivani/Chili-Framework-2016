@@ -42,21 +42,7 @@ void Game::UpdateModel()
 
 void Game::ComposeFrame()
 {
-	//const auto cond = wnd.kbd.KeyIsPressed(VK_UP);
-	 static int x=0, y=0;
-	 if (wnd.kbd.KeyIsPressed(VK_UP) )   y =  y-1;
-	 if (wnd.kbd.KeyIsPressed(VK_DOWN))  y =  y+1;
-	 if (wnd.kbd.KeyIsPressed(VK_RIGHT)) x =  x+1;
-	 if (wnd.kbd.KeyIsPressed(VK_LEFT))  x =  x-1;
 
-	/*int R = (wnd.kbd.ReadKey().GetCode() =='r') ? 250 : 250;
-	int G = (wnd.kbd.ReadChar() == 'g') ? 250 : 250;
-	int B = (wnd.kbd.ReadChar() == 'b') ? 250 : 250;*/
-
-	for (auto i = 0; i < 100; ++i)
-		for (auto j = 0; j < 100; ++j)
-			gfx.PutPixel(i + 350+x, j + 250+y, 255,255,255);
-
-
+	gfx.PutPixel(200, 200, 255, 255, 255);
 
 }
