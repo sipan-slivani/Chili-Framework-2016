@@ -42,5 +42,13 @@ private:
 	Graphics gfx;
 	/********************************/
 	/*  User Variables              */
+
+	int x = 0,x2=100;
+	int y = 0,y2=100;
+	int vx = 0;
+	int vy = 0;
+	bool keyp = false;
+	int coll = 0;
+
 	/********************************/
 };
