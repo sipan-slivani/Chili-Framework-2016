@@ -37,13 +37,14 @@ void Game::Go()
 }
 
 void Game::UpdateModel()
-{
-		//keyp = false;
+{		
+	//keyboard press logic key(up,down ,left ,right)//
 		if (wnd.kbd.KeyIsPressed(VK_UP)) { vy -= 1; keyp = true; }
 		if (wnd.kbd.KeyIsPressed(VK_DOWN)) { vy += 1; keyp = true; }
 		if (wnd.kbd.KeyIsPressed(VK_RIGHT)) { vx += 1; keyp = true; }
 		if (wnd.kbd.KeyIsPressed(VK_LEFT)) { vx -= 1; keyp = true; }
 
+	// control velocity of speed of object
 		if (!(keyp))
 		{
 			vx = 0;
@@ -56,6 +57,7 @@ void Game::UpdateModel()
 			keyp = false;
 		}
 			
+	//set boundary to object not to pass graphic boundary
 		auto wid = gfx.ScreenWidth;
 		auto hih = gfx.ScreenHeight;
 		if ((x) > wid-20)x = wid -20;
@@ -63,6 +65,7 @@ void Game::UpdateModel()
 		if (x < 0)x = 0;
 		if (y < 0)y = 0;
 
+	//object two color red when cross tow object collesion ;) 
 		if ((x2 > x - 20 && x2 < x + 20) && (y2 > y - 20 && y2 < y + 20))coll = 0;
 		else coll = 255;
 
@@ -72,14 +75,15 @@ void Game::UpdateModel()
 
 void Game::ComposeFrame()
 {
-	//const auto cond = wnd.kbd.KeyIsPressed(VK_UP);
-	 
+	//Draw .....
+
+	//draw object 1 
 	for (auto i = 0; i < 20; ++i)
 		for (auto j = 0; j < 20; ++j)
 		{
 			gfx.PutPixel(x + i, y + j, 255, 255, 255);
 		}
-
+	//draw object 2
 	for (auto i = 0; i < 20; ++i)
 		for (auto j = 0; j < 20; ++j)
 		{
