@@ -43,11 +43,11 @@ private:
 	/********************************/
 	/*  User Variables              */
 
-	int x = 0,x2=100;
-	int y = 0,y2=100;
+	int x1 = 0,x2=100;
+	int y1 = 0,y2=100;
 	int vx = 0;
 	int vy = 0;
-	bool keyp = false;
+	bool keypress = false;
 	int coll = 0;
 
 	/********************************/

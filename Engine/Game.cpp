@@ -39,34 +39,34 @@ void Game::Go()
 void Game::UpdateModel()
 {		
 	//keyboard press logic key(up,down ,left ,right)//
-		if (wnd.kbd.KeyIsPressed(VK_UP)) { vy -= 1; keyp = true; }
-		if (wnd.kbd.KeyIsPressed(VK_DOWN)) { vy += 1; keyp = true; }
-		if (wnd.kbd.KeyIsPressed(VK_RIGHT)) { vx += 1; keyp = true; }
-		if (wnd.kbd.KeyIsPressed(VK_LEFT)) { vx -= 1; keyp = true; }
+		if (wnd.kbd.KeyIsPressed(VK_UP)) { vy -= 1; keypress = true; }
+		if (wnd.kbd.KeyIsPressed(VK_DOWN)) { vy += 1; keypress = true; }
+		if (wnd.kbd.KeyIsPressed(VK_RIGHT)) { vx += 1; keypress = true; }
+		if (wnd.kbd.KeyIsPressed(VK_LEFT)) { vx -= 1; keypress = true; }
 
 	// control velocity of speed of object
-		if (!(keyp))
+		if (!(keypress))
 		{
 			vx = 0;
 			vy = 0;
 		}
 		else 
 		{
-			y = y + vy;
-			x = x + vx;
-			keyp = false;
+			y1 = y1 + vy;
+			x1 = x1 + vx;
+			keypress = false;
 		}
 			
 	//set boundary to object not to pass graphic boundary
 		auto wid = gfx.ScreenWidth;
 		auto hih = gfx.ScreenHeight;
-		if ((x) > wid-20)x = wid -20;
-		if ((y) > hih-20) y = hih-20;
-		if (x < 0)x = 0;
-		if (y < 0)y = 0;
+		if ((x1) > wid-20)x1 = wid -20;
+		if ((y1) > hih-20) y1 = hih-20;
+		if (x1 < 0)x1 = 0;
+		if (y1 < 0)y1 = 0;
 
 	//object two color red when cross tow object collesion ;) 
-		if ((x2 > x - 20 && x2 < x + 20) && (y2 > y - 20 && y2 < y + 20))coll = 0;
+		if ((x2 > x1 - 20 && x2 < x1 + 20) && (y2 > y1 - 20 && y2 < y1 + 20))coll = 0;
 		else coll = 255;
 
 
@@ -81,7 +81,7 @@ void Game::ComposeFrame()
 	for (auto i = 0; i < 20; ++i)
 		for (auto j = 0; j < 20; ++j)
 		{
-			gfx.PutPixel(x + i, y + j, 255, 255, 255);
+			gfx.PutPixel(x1 + i, y1 + j, 255, 255, 255);
 		}
 	//draw object 2
 	for (auto i = 0; i < 20; ++i)
