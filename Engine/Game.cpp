@@ -73,20 +73,24 @@ void Game::UpdateModel()
 
 }
 
+
+
+void Game::drowbox(int x, int y, int r, int g, int b,int size)
+{
+	for (auto i = 0; i < size; ++i)
+		for (auto j = 0; j < size; ++j)
+			gfx.PutPixel(x+i,y+j,r,g,b);
+		
+
+}
+
 void Game::ComposeFrame()
 {
 	//Draw .....
 
 	//draw object 1 
-	for (auto i = 0; i < 20; ++i)
-		for (auto j = 0; j < 20; ++j)
-		{
-			gfx.PutPixel(x1 + i, y1 + j, 255, 255, 255);
-		}
+
+	drowbox(x1, y1, 255, 255, 255, 20);
 	//draw object 2
-	for (auto i = 0; i < 20; ++i)
-		for (auto j = 0; j < 20; ++j)
-		{
-			gfx.PutPixel(x2 + i, y2 + j, 255, coll, coll);
-		}
+	drowbox(x2, y2, coll, 25, 255, 20);
 }

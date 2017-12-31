@@ -32,10 +32,13 @@ public:
 	Game& operator=( const Game& ) = delete;
 	void Go();
 private:
+	
 	void ComposeFrame();
 	void UpdateModel();
 	/********************************/
 	/*  User Functions              */
+	void drowbox(int x, int y, int r, int g, int b, int size);
+	
 	/********************************/
 private:
 	MainWindow& wnd;
