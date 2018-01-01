@@ -27,24 +27,23 @@
 Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
-	gfx( wnd )
+	gfx( wnd ),
+	rng(rd())
 {
-	wid = gfx.ScreenWidth;
-	hih = gfx.ScreenHeight;
+
 	int xd = wid / sz;
 	int yd = hih / sz;
-	std::random_device rd;
-	std::mt19937 rng(rd());
-	std::uniform_int_distribution<int> xdist(0, xd);
-	std::uniform_int_distribution<int> ydist(0, yd);
-
+	std::uniform_int_distribution<int> xdu(0, xd-1);
+	std::uniform_int_distribution<int> ydu(0,yd-1);
+	for (int i = 0;i < 12; ++i)
+	{
+		xdist[i] = xdu(rng)*sz;
+		ydist[i] = ydu(rng)*sz;
+		xdu.operator()(rng);
+		ydu.operator()(rng);
+	}
 	x1 = xd *sz/2;
 	y1 = yd * sz/2;
-
-	x2 = ((xdist(rng))*sz)-sz;
-	y2 = ((ydist(rng))*sz)-sz;
-
-	
 }
 
 void Game::Go()
@@ -81,11 +80,6 @@ void Game::UpdateModel()
 		if (x1 < 0)x1 = 0;
 		if (y1 < 0)y1 = 0;
 
-	//object two color red when cross tow object collesion ;) 
-		if ((x2 > x1 - sz && x2 < x1 + sz) && (y2 > y1 - sz && y2 < y1 + sz))coll = 0;
-		else coll = 255;
-
-
 
 }
 
@@ -110,13 +104,41 @@ void Game::grad()
 
 }
 
+void Game::eatgen(int xdist,int  ydist)
+{
+
+	//int xtemp = xdist;
+	//int ytemp = ydist;
+	unsigned int xtemp = (xdist );
+	unsigned int ytemp = (ydist) ;
+
+	drowbox(xtemp,ytemp, 255, 255, 255, sz);
+
+}
+
+
 void Game::ComposeFrame()
 {
 	//Drawing
 	grad();
 	//draw object 1 
-	drowbox(x2, y2, 255, 255, 255,sz);
-	//draw object 2
+	
 	drowbox(x1, y1, coll, 25, 255, sz);
+	//draw object 2
+	
+	//if (cntr)
+	//{
+	//	if (!(x1 == x2 && y1 == y2))
+	//	{
+	//		
+	//		drowbox(x2, y2, 255, 255, 255,sz);
+	//	}
 
+	//	else cntr--;
+	//	
+	//}
+	for (int i = 0; i < 12; ++i)
+		eatgen(xdist[i],ydist[i]);
+	//drowbox(x2, y2, 255, 255, 255, sz);
+	//eatgen(3);
 }
