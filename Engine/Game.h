@@ -24,6 +24,7 @@
 #include "Mouse.h"
 #include "Graphics.h"
 #include <iostream>
+#include  <random>
 
 class Game
 {
@@ -39,6 +40,7 @@ private:
 	/********************************/
 	/*  User Functions              */
 	void drowbox(int x, int y, int r, int g, int b, int size);
+	void grad();
 
 	
 	/********************************/
@@ -48,17 +50,24 @@ private:
 	/********************************/
 	/*  User Variables              */
 
-	int x1 = 0,x2=100;
-	int y1 = 0,y2=100;
+	int x1, x2;
+	int y1,y2;
 	int vx = 0;
 	int vy = 0;
 	bool keypress = false;
 	int coll = 0;
-	int speed = 20;
+	double speed = 0.1;
 	int sz = 20;
 	int fps = 60;
 	int wid = gfx.ScreenWidth;
-	const int hih = gfx.ScreenHeight;
+	int hih = gfx.ScreenHeight;
+	/*std::random_device rdiv;
+	std::mt19937 rng;
+	rng.seed()*/
+
+
+
+	
 	//char keyss1;
 	//char keyss2;
 	//bool test1,test2;

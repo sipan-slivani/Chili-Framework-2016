@@ -23,11 +23,28 @@
 #include <cctype>
 #include <cassert>
 
+
 Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
 	gfx( wnd )
 {
+	wid = gfx.ScreenWidth;
+	hih = gfx.ScreenHeight;
+	int xd = wid / sz;
+	int yd = hih / sz;
+	std::random_device rd;
+	std::mt19937 rng(rd());
+	std::uniform_int_distribution<int> xdist(0, xd);
+	std::uniform_int_distribution<int> ydist(0, yd);
+
+	x1 = xd *sz/2;
+	y1 = yd * sz/2;
+
+	x2 = ((xdist(rng))*sz)-sz;
+	y2 = ((ydist(rng))*sz)-sz;
+
+	
 }
 
 void Game::Go()
@@ -40,37 +57,23 @@ void Game::Go()
 
 void Game::UpdateModel()
 {		
-	//keyboard press logic key(up,down ,left ,right)//
-	//keyss1 = wnd.kbd.ReadChar();
 
-
-
-
-	
-
-	//test1 = wnd.kbd.KeyIsEmpty();
-	//test2 = wnd.kbd.KeyIsPressed('j');
-	//test2 = wnd.kbd.
 	if (!wnd.kbd.KeyIsEmpty())
 	{
-		if (wnd.kbd.KeyIsPressed(VK_UP)) { vy = -1; vx = 0; }
-		if (wnd.kbd.KeyIsPressed(VK_DOWN)) { vy = 1; vx = 0; }
-		if (wnd.kbd.KeyIsPressed(VK_RIGHT)) { vx = 1; vy = 0; }
-		if (wnd.kbd.KeyIsPressed(VK_LEFT)) { vx = -1; vy = 0; }
+		if (wnd.kbd.KeyIsPressed(VK_UP)) { vy =  - (sz); vx = 0; }
+		if (wnd.kbd.KeyIsPressed(VK_DOWN)) { vy =  (sz); vx = 0; }
+		if (wnd.kbd.KeyIsPressed(VK_RIGHT)) { vx = (sz); vy = 0; }
+		if (wnd.kbd.KeyIsPressed(VK_LEFT)) { vx = -(sz); vy = 0; }
+	}
+	if(speed >60)
+	{
+		speed = 0;
+		y1 = y1 + vy;
+		x1 = x1 + vx;
 	}
 
-	if(speed < 0)
-		{
-			y1 = y1 + vy;
-			x1 = x1 + vx;
-			keypress = false;
-			speed = sz;
-		}	
-	else
-		{
-		speed-=sz;
-		}
-	
+	speed += 5;
+
 	//set boundary to object not to pass graphic boundary
 
 		if ((x1) > wid-sz)x1 = wid -sz;
@@ -97,13 +100,23 @@ void Game::drowbox(int x, int y, int r, int g, int b,int size)
 
 }
 
+void Game::grad()
+{
+	for (auto i = 0; i < wid; i += sz)
+	{
+		for (auto j = 0; j < hih ; j += sz)
+			gfx.PutPixel(i, j, 255,255, 255);
+	}
+
+}
+
 void Game::ComposeFrame()
 {
 	//Drawing
-
+	grad();
 	//draw object 1 
-	drowbox(x1, y1, 255, 255, 255,sz);
+	drowbox(x2, y2, 255, 255, 255,sz);
 	//draw object 2
-	drowbox(x2, y2, coll, 25, 255, sz);
+	drowbox(x1, y1, coll, 25, 255, sz);
 
 }
