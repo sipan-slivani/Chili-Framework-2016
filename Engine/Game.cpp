@@ -20,6 +20,8 @@
  ******************************************************************************************/
 #include "MainWindow.h"
 #include "Game.h"
+#include <cctype>
+#include <cassert>
 
 Game::Game( MainWindow& wnd )
 	:
@@ -39,34 +41,45 @@ void Game::Go()
 void Game::UpdateModel()
 {		
 	//keyboard press logic key(up,down ,left ,right)//
-		if (wnd.kbd.KeyIsPressed(VK_UP)) { vy -= 1; keypress = true; }
-		if (wnd.kbd.KeyIsPressed(VK_DOWN)) { vy += 1; keypress = true; }
-		if (wnd.kbd.KeyIsPressed(VK_RIGHT)) { vx += 1; keypress = true; }
-		if (wnd.kbd.KeyIsPressed(VK_LEFT)) { vx -= 1; keypress = true; }
+	//keyss1 = wnd.kbd.ReadChar();
 
-	// control velocity of speed of object
-		if (!(keypress))
-		{
-			vx = 0;
-			vy = 0;
-		}
-		else 
+
+
+
+	
+
+	//test1 = wnd.kbd.KeyIsEmpty();
+	//test2 = wnd.kbd.KeyIsPressed('j');
+	//test2 = wnd.kbd.
+	if (!wnd.kbd.KeyIsEmpty())
+	{
+		if (wnd.kbd.KeyIsPressed(VK_UP)) { vy = -1; vx = 0; }
+		if (wnd.kbd.KeyIsPressed(VK_DOWN)) { vy = 1; vx = 0; }
+		if (wnd.kbd.KeyIsPressed(VK_RIGHT)) { vx = 1; vy = 0; }
+		if (wnd.kbd.KeyIsPressed(VK_LEFT)) { vx = -1; vy = 0; }
+	}
+
+	if(speed < 0)
 		{
 			y1 = y1 + vy;
 			x1 = x1 + vx;
 			keypress = false;
+			speed = sz;
+		}	
+	else
+		{
+		speed-=sz;
 		}
-			
+	
 	//set boundary to object not to pass graphic boundary
-		auto wid = gfx.ScreenWidth;
-		auto hih = gfx.ScreenHeight;
-		if ((x1) > wid-20)x1 = wid -20;
-		if ((y1) > hih-20) y1 = hih-20;
+
+		if ((x1) > wid-sz)x1 = wid -sz;
+		if ((y1) > hih-sz) y1 = hih-sz;
 		if (x1 < 0)x1 = 0;
 		if (y1 < 0)y1 = 0;
 
 	//object two color red when cross tow object collesion ;) 
-		if ((x2 > x1 - 20 && x2 < x1 + 20) && (y2 > y1 - 20 && y2 < y1 + 20))coll = 0;
+		if ((x2 > x1 - sz && x2 < x1 + sz) && (y2 > y1 - sz && y2 < y1 + sz))coll = 0;
 		else coll = 255;
 
 
@@ -86,11 +99,11 @@ void Game::drowbox(int x, int y, int r, int g, int b,int size)
 
 void Game::ComposeFrame()
 {
-	//Draw .....
+	//Drawing
 
 	//draw object 1 
-
-	drowbox(x1, y1, 255, 255, 255, 20);
+	drowbox(x1, y1, 255, 255, 255,sz);
 	//draw object 2
-	drowbox(x2, y2, coll, 25, 255, 20);
+	drowbox(x2, y2, coll, 25, 255, sz);
+
 }

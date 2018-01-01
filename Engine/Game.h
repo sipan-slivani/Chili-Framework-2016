@@ -23,6 +23,7 @@
 #include "Keyboard.h"
 #include "Mouse.h"
 #include "Graphics.h"
+#include <iostream>
 
 class Game
 {
@@ -38,6 +39,7 @@ private:
 	/********************************/
 	/*  User Functions              */
 	void drowbox(int x, int y, int r, int g, int b, int size);
+
 	
 	/********************************/
 private:
@@ -52,6 +54,14 @@ private:
 	int vy = 0;
 	bool keypress = false;
 	int coll = 0;
+	int speed = 20;
+	int sz = 20;
+	int fps = 60;
+	int wid = gfx.ScreenWidth;
+	const int hih = gfx.ScreenHeight;
+	//char keyss1;
+	//char keyss2;
+	//bool test1,test2;
 
 	/********************************/
 };
