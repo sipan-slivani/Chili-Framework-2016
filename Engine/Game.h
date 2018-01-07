@@ -12,8 +12,7 @@
  *																						  *
  *	The Chili DirectX Framework is distributed in the hope that it will be useful,		  *
  *	but WITHOUT ANY WARRANTY; without even the implied warranty of						  *
- *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the						  *
- *	GNU General Public License for more details.										  *
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the						  *										  *
  *																						  *
  *	You should have received a copy of the GNU General Public License					  *
  *	along with The Chili DirectX Framework.  If not, see <http://www.gnu.org/licenses/>.  *
@@ -25,7 +24,8 @@
 #include "Graphics.h"
 #include <iostream>
 #include  <random>
-
+#include <array>
+using namespace std;
 class Game
 {
 public:
@@ -51,8 +51,7 @@ private:
 	Graphics gfx;
 	/********************************/
 	/*  User Variables              */
-
-	int xdist[12], ydist[12];
+	array<int, 12> xarr, yarr;
 	int x1, x2;
 	int y1,y2;
 	int vx = 0;

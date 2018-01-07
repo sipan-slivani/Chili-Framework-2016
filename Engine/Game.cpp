@@ -20,8 +20,7 @@
  ******************************************************************************************/
 #include "MainWindow.h"
 #include "Game.h"
-#include <cctype>
-#include <cassert>
+
 
 
 Game::Game( MainWindow& wnd )
@@ -31,16 +30,14 @@ Game::Game( MainWindow& wnd )
 	rng(rd())
 {
 
-	int xd = wid / sz;
-	int yd = hih / sz;
+	const int xd = wid / sz;
+	const int yd = hih / sz;
 	std::uniform_int_distribution<int> xdu(0, xd-1);
 	std::uniform_int_distribution<int> ydu(0,yd-1);
 	for (int i = 0;i < 12; ++i)
 	{
-		xdist[i] = xdu(rng)*sz;
-		ydist[i] = ydu(rng)*sz;
-		xdu.operator()(rng);
-		ydu.operator()(rng);
+		xarr[i] = xdu(rng)*sz;
+		yarr[i] = ydu(rng)*sz;
 	}
 	x1 = xd *sz/2;
 	y1 = yd * sz/2;
@@ -64,14 +61,16 @@ void Game::UpdateModel()
 		if (wnd.kbd.KeyIsPressed(VK_RIGHT)) { vx = (sz); vy = 0; }
 		if (wnd.kbd.KeyIsPressed(VK_LEFT)) { vx = -(sz); vy = 0; }
 	}
-	if(speed >60)
+	if(speed >1900)
 	{
 		speed = 0;
 		y1 = y1 + vy;
 		x1 = x1 + vx;
 	}
 
-	speed += 5;
+	speed += 155;
+	speed += 2;
+	speed += 1;
 
 	//set boundary to object not to pass graphic boundary
 
@@ -109,10 +108,11 @@ void Game::eatgen(int xdist,int  ydist)
 
 	//int xtemp = xdist;
 	//int ytemp = ydist;
-	unsigned int xtemp = (xdist );
+	unsigned int xtemp = (xdist );///hiiiii
+
 	unsigned int ytemp = (ydist) ;
 
-	drowbox(xtemp,ytemp, 255, 255, 255, sz);
+	drowbox(xtemp,ytemp, 225, 155, 115, sz);
 
 }
 
@@ -138,7 +138,5 @@ void Game::ComposeFrame()
 	//	
 	//}
 	for (int i = 0; i < 12; ++i)
-		eatgen(xdist[i],ydist[i]);
-	//drowbox(x2, y2, 255, 255, 255, sz);
-	//eatgen(3);
+		eatgen(xarr[i],yarr[i]);
 }
